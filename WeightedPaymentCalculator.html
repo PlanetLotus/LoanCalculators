@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weighted Payment Calculator</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/site.css" rel="stylesheet">
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-4" style="float: none; margin: 0 auto">
+            <h1>Weighted Payment Calculator</h1>
+
+            <p>When you have multiple loans that you want to pay down faster, you need to know how to minimize the amount of interest generated. This means always focusing your payments on the loans that generate the most interest and making the minimum payments on any other loans that don't meet this criteria. Here you can put the principal and interest rate of as many loans as you wish and this page will tell you what to focus on.</p>
+
+            <h3>Loan Properties</h3>
+
+			<div class="form-group">
+                <label for="payment-input">Desired Payment Beyond Minimum (Optional)</label>
+				<div class="input-group">
+					<div class="input-group-addon">$</div>
+					<input type="text" class="form-control" id="payment-input" placeholder="1000">
+				</div>
+            </div>
+			
+			<div id="loan-list" class="form-inline">
+				<div id="loan1" class="row loan">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="principal1-input">Principal</label>
+							<div class="input-group">
+								<div class="input-group-addon">$</div>
+								<input type="text" class="form-control" id="principal1-input" placeholder="10000">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="rate1-input">Interest Rate (Percentage)</label>
+							<div class="input-group">
+								<input type="text" class="form-control" id="rate1-input" placeholder="5.0">
+								<div class="input-group-addon">%</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="loan2" class="row loan">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="sr-only" for="principal2-input">Principal</label>
+							<div class="input-group">
+								<div class="input-group-addon">$</div>
+								<input type="text" class="form-control" id="principal2-input" placeholder="10000">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="sr-only" for="rate2-input">Interest Rate (Percentage)</label>
+							<div class="input-group">
+								<input type="text" class="form-control" id="rate2-input" placeholder="5.0">
+								<div class="input-group-addon">%</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<table id="loan-output-table" class="table">
+				<thead>
+					<tr>
+						<th>Loan #</th>
+						<th>Annual Interest Generated</th>
+						<th>Optimal Distribution of Payment</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+			<script src="js/weightedPaymentCalculator.js"></script>
+        </div>
+    </div>
+</body>
+</html>
