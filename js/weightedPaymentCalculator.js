@@ -125,7 +125,9 @@ $(function() {
 			return null;
 		}
 
-		return { principal: principal, interest: interest, monthlyInterest: principal * interest / 12 };
+		var interestDecimal = interest / 100;
+
+		return { principal: principal, interest: interestDecimal, monthlyInterest: principal * interestDecimal / 12 };
 	}
 
 	function getValidDecimal(decimal) {
