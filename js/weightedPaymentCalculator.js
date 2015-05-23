@@ -59,9 +59,9 @@ $(function() {
 			var distribution = 'Need "Desired Payment Beyond Minimum" to calculate.';
 
 			var newRowHtml =    '<tr>' +
-									'<td>' + i + '</td>' +
+									'<td>' + (i + 1) + '</td>' +
 									'<td>$' + validLoans[i].monthlyInterest.toFixed(2) + '</td>' +
-									'<td>' + test[i] + '</td>' +
+									'<td>$' + test[i].toFixed(2) + '</td>' +
 								'</tr>';
 
 			tableBody.append(newRowHtml);
@@ -75,27 +75,26 @@ $(function() {
 	function calculatePayment(loans, remainder) {
 		if (loans.length < 1) {
 			console.log('Ran out of loans. Hopefully this is what normally happens.');
-			return 0;
+			return [0];
 		}
 
 		if (loans.length === 1) {
-			return remainder;
+			return [remainder];
 		}
 
 		if (remainder <= 0) {
 			console.log('Ran out of remainder.');
-			return 0;
+			return [0];
 		}
 
 		var loan1InterestGeneratedAfterRemainder = (loans[0].principal - remainder) * loans[0].interest / 12;
-		console.log(loan1InterestGeneratedAfterRemainder + ', ' + getMonthlyInterest(loans[1]));
 
 		if (loan1InterestGeneratedAfterRemainder > getMonthlyInterest(loans[1])) {
-			return { loan1Payment: remainder, loan2Payment: 0 };
+			return [remainder, 0];
 		} else {
 			var distribution = getPaymentDistribution(loans[0].interest, loans[1].interest, remainder);
 			var newRemainder = remainder - distribution.rate1Payment;
-			return { loan1Payment: distribution.rate1Payment, loan2Payment: calculatePayment(loans.slice(1, loans.length), newRemainder) };
+			return [distribution.rate1Payment].concat(calculatePayment(loans.slice(1, loans.length), newRemainder));
 		}
 	}
 
