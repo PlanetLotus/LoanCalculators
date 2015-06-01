@@ -87,15 +87,26 @@ $(function() {
 			return [0];
 		}
 
-		var loan1InterestGeneratedAfterRemainder = (loans[0].principal - remainder) * loans[0].interest / 12;
+        var loan1Payment = 0;
 
-		if (loan1InterestGeneratedAfterRemainder > getMonthlyInterest(loans[1])) {
-			return [remainder, 0];
-		} else {
-			var distribution = getPaymentDistribution(loans[0].interest, loans[1].interest, remainder);
-			var newRemainder = remainder - distribution[0];
-			return [distribution[0]].concat(calculatePayment(loans.slice(1, loans.length), newRemainder));
+        // First, make the monthly interest accrued equal
+        // Then, if there's any payment leftover, distribute it with a ratio
+        if (loans[0].monthlyInterest > loans[1].monthlyInterest) {
+            var targetBalance = loans[1].monthlyInterest * 12 / loans[0].interest;
+            var paymentToReachTarget = loans[0].principal - targetBalance;
+
+            if (paymentToReachTarget > remainder) {
+                return [remainder, 0];
+            } else {
+                loan1Payment = paymentToReachTarget;
+                remainder -= loan1Payment;
+            }
 		}
+
+		var distribution = getPaymentDistribution(loans[0].interest, loans[1].interest, remainder);
+		var newRemainder = remainder - distribution[0];
+		loan1Payment += distribution[0];
+		return [loan1Payment].concat(calculatePayment(loans.slice(1, loans.length), newRemainder));
 	}
 
 	function getPaymentDistribution(rate1, rate2, payment) {
