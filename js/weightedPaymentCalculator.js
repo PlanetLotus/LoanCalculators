@@ -93,8 +93,8 @@ $(function() {
 			return [remainder, 0];
 		} else {
 			var distribution = getPaymentDistribution(loans[0].interest, loans[1].interest, remainder);
-			var newRemainder = remainder - distribution.rate1Payment;
-			return [distribution.rate1Payment].concat(calculatePayment(loans.slice(1, loans.length), newRemainder));
+			var newRemainder = remainder - distribution[0];
+			return [distribution[0]].concat(calculatePayment(loans.slice(1, loans.length), newRemainder));
 		}
 	}
 
@@ -105,7 +105,7 @@ $(function() {
 		var rate2Payment = payment / normalizedPayment;
 		var rate1Payment = payment - rate2Payment;
 
-		return { rate1Payment: rate1Payment, rate2Payment: rate2Payment };
+		return [rate1Payment, rate2Payment];
 	}
 
 	function getAnnualInterest(loan) {
