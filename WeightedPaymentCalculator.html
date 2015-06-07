@@ -7,7 +7,7 @@
     <title>Weighted Payment Calculator</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/site.css" rel="stylesheet">
+    <link href="css/site.css" rel="stylesheet">
 </head>
 <body>
     <div class="row">
@@ -18,72 +18,72 @@
 
             <h3>Loan Properties</h3>
 
-			<div class="form-group">
+            <div class="form-group">
                 <label for="payment-input">Desired Payment Beyond Minimum (Optional)</label>
-				<div class="input-group">
-					<div class="input-group-addon">$</div>
-					<input type="text" class="form-control" id="payment-input" placeholder="1000" value="1000">
-				</div>
+                <div class="input-group">
+                    <div class="input-group-addon">$</div>
+                    <input type="text" class="form-control" id="payment-input" placeholder="1000" value="1000">
+                </div>
             </div>
 
-			<div id="loan-list" class="form-inline">
-				<div id="loan1" class="row loan">
-					<div class="col-md-4">
-						<div class="form-group">
-							<label for="principal1-input">Principal</label>
-							<div class="input-group">
-								<div class="input-group-addon">$</div>
-								<input type="text" class="form-control" id="principal1-input" placeholder="10000" value="11664">
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="form-group">
-							<label for="rate1-input">Interest Rate (Percentage)</label>
-							<div class="input-group">
-								<input type="text" class="form-control" id="rate1-input" placeholder="5.0" value="7.25">
-								<div class="input-group-addon">%</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div id="loan2" class="row loan">
-					<div class="col-md-4">
-						<div class="form-group">
-							<label class="sr-only" for="principal2-input">Principal</label>
-							<div class="input-group">
-								<div class="input-group-addon">$</div>
-								<input type="text" class="form-control" id="principal2-input" placeholder="10000" value="12531">
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="form-group">
-							<label class="sr-only" for="rate2-input">Interest Rate (Percentage)</label>
-							<div class="input-group">
-								<input type="text" class="form-control" id="rate2-input" placeholder="5.0" value="6.8">
-								<div class="input-group-addon">%</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+            <div id="loan-list" class="form-inline">
+                <div id="loan1" class="row loan">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="principal1-input">Principal</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">$</div>
+                                <input type="text" class="form-control" id="principal1-input" placeholder="10000" value="11664">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="rate1-input">Interest Rate (Percentage)</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="rate1-input" placeholder="5.0" value="7.25">
+                                <div class="input-group-addon">%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="loan2" class="row loan">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="sr-only" for="principal2-input">Principal</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">$</div>
+                                <input type="text" class="form-control" id="principal2-input" placeholder="10000" value="12531">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="sr-only" for="rate2-input">Interest Rate (Percentage)</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="rate2-input" placeholder="5.0" value="6.8">
+                                <div class="input-group-addon">%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-			<table id="loan-output-table" class="table">
-				<thead>
-					<tr>
-						<th>Loan #</th>
-						<th>Monthly Interest Generated</th>
-						<th>Optimal Payment Distribution</th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
+            <table id="loan-output-table" class="table">
+                <thead>
+                    <tr>
+                        <th>Loan #</th>
+                        <th>Monthly Interest Generated</th>
+                        <th>Optimal Payment Distribution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
             <script src="js/bootstrap.min.js"></script>
-			<script src="js/weightedPaymentCalculator.js"></script>
+            <script src="js/weightedPaymentCalculator.js"></script>
         </div>
     </div>
 </body>
