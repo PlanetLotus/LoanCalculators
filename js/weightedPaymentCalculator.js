@@ -23,6 +23,7 @@ $(function() {
 
 			var loan = getValidRow(principal, interest);
 			if (loan !== null) {
+			    loan.displayOrder = i;
 				validLoans.push(loan);
 			}
 		}
@@ -52,8 +53,25 @@ $(function() {
 
 		var desiredPayment = getValidDecimal($('#payment-input').val());
 
-		var test = calculatePayment(validLoans, desiredPayment);
-		console.log(test);
+		var distributions = calculatePayment(validLoans, desiredPayment);
+
+        // Map payment distributions to loans
+		for (var i = 0; i < distributions.length; i++) {
+		    validLoans[i].distribution = distributions[i];
+		}
+
+        // Restore original order for display
+		validLoans.sort(function(a, b) {
+			if (a.displayOrder < b.displayOrder) {
+				return -1;
+			}
+
+			if (a.displayOrder > b.displayOrder) {
+				return 1;
+			}
+
+			return 0;
+		});
 
 		for (var i = 0; i < validLoans.length; i++) {
 			var distribution = 'Need "Desired Payment Beyond Minimum" to calculate.';
@@ -61,7 +79,7 @@ $(function() {
 			var newRowHtml =    '<tr>' +
 									'<td>' + (i + 1) + '</td>' +
 									'<td>$' + validLoans[i].monthlyInterest.toFixed(2) + '</td>' +
-									'<td>$' + test[i].toFixed(2) + '</td>' +
+									'<td>$' + validLoans[i].distribution.toFixed(2) + '</td>' +
 								'</tr>';
 
 			tableBody.append(newRowHtml);
