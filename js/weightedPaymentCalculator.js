@@ -24,10 +24,29 @@ $(function() {
         var loans = JSON.parse(json);
         console.log(loans);
 
-        // TODO: Put loans in DOM
+        var numLoanRows = $('.loan').length;
+
+        for (var i = 0; i < loans.length; i++) {
+            var principal = loans[i].principal.toFixed(2);
+            var rate = (loans[i].interest * 100).toFixed(2);
+
+            $('#principal' + (i + 1) + '-input').val(principal);
+            $('#rate' + (i + 1) + '-input').val(rate);
+
+            if (i + 1 === numLoanRows) {
+                addLoanRow();
+                numLoanRows++;
+            }
+        }
+
+        // TODO: Pass loans into updateOutput to avoid reprocessing
+        if (loans.length >= 2) {
+            updateOutput();
+        }
     }
 
     function saveLoans(loans) {
+        // TODO: Also save desired payment beyond minimum
         localStorage.setItem('loans', JSON.stringify(loans));
     }
 
@@ -38,7 +57,6 @@ $(function() {
 
         for (var i = 0; i < numLoans; i++) {
             // Check if each row is valid. If 2+ rows are valid, then show output.
-            // If all rows are valid, add a row.
             var principal = $('#principal' + (i + 1) + '-input').val();
             var interest = $('#rate' + (i + 1) + '-input').val();
 
