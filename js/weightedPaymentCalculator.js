@@ -38,7 +38,7 @@ $(function() {
 
         for (var i = 0; i < loans.length; i++) {
             // Fill page with data
-            var principal = loans[i].principal.toFixed(2);
+            var principal = getMoneyString(loans[i].principal);
             var rate = (loans[i].interest * 100).toFixed(2);
 
             $('#principal' + (i + 1) + '-input').val(principal);
@@ -136,8 +136,8 @@ $(function() {
 
             var newRowHtml =    '<tr>' +
                                     '<td>' + (i + 1) + '</td>' +
-                                    '<td>$' + validLoans[i].monthlyInterest + '</td>' +
-                                    '<td>$' + validLoans[i].distribution + '</td>' +
+                                    '<td>$' + getMoneyString(validLoans[i].monthlyInterest) + '</td>' +
+                                    '<td>$' + getMoneyString(validLoans[i].distribution) + '</td>' +
                                 '</tr>';
 
             tableBody.append(newRowHtml);
@@ -240,6 +240,34 @@ $(function() {
             return null;
         }
         return +decimal;
+    }
+
+    function getMoneyString(value) {
+        valueString = value.toFixed(2);
+
+        if (value < 10000) {
+            return valueString;
+        }
+
+        var decimalIndex = valueString.indexOf('.');
+        var hundredsIndex = decimalIndex - 3;
+
+        // There are (x - 1) / 3 (rounded to nearest whole number) commas
+        var numDecimalChars = 3;
+        var numCommas = Math.floor((valueString.length - numDecimalChars - 1) / 3);
+
+        // The first comma is inserted where the hundreds place is now
+        valueString = valueString.substr(0, hundredsIndex) + ',' + valueString.substr(hundredsIndex);
+
+        var commaIndex = hundredsIndex - 3;
+
+        // The rest of the commas are inserted 3 places before the last comma
+        for (var i = 1; i < numCommas; i++) {
+            valueString = valueString.substr(0, commaIndex) + ',' + valueString.substr(commaIndex);
+            commaIndex -= 3;
+        }
+
+        return valueString;
     }
 
     function addLoanRow() {
