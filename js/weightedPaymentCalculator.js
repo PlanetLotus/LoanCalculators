@@ -4,6 +4,7 @@
 $(function() {
     $(document).ready(function() {
         loadLoans();
+        loadPayment();
     });
 
     $('body').keyup(function(e) {
@@ -14,6 +15,15 @@ $(function() {
     });
 
     $('input').keyup(function(e) { updateOutput(); });
+
+    function loadPayment() {
+        var payment = localStorage.getItem('payment');
+        if (!payment) {
+            return;
+        }
+
+        $('#payment-input').val(payment);
+    }
 
     function loadLoans() {
         var json = localStorage.getItem('loans');
@@ -45,9 +55,14 @@ $(function() {
         }
     }
 
-    function saveLoans(loans) {
-        // TODO: Also save desired payment beyond minimum
-        localStorage.setItem('loans', JSON.stringify(loans));
+    function saveData(loans, payment) {
+        if (loans) {
+            localStorage.setItem('loans', JSON.stringify(loans));
+        }
+
+        if (payment) {
+            localStorage.setItem('payment', payment);
+        }
     }
 
     function updateOutput(validLoans) {
@@ -129,7 +144,7 @@ $(function() {
         }
 
         // Side effect
-        saveLoans(validLoans);
+        saveData(validLoans, desiredPayment);
 
         if (validLoans.length === numLoans) {
             addLoanRow();
