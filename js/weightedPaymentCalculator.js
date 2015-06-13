@@ -2,13 +2,34 @@
 // User provides different payments and calculator says how much faster you'll pay off the loan, and how much you'll save in interest while doing so.
 
 $(function() {
+    $(document).ready(function() {
+        loadLoans();
+    });
+
     $('body').keyup(function(e) {
         // Update output when Enter key is pressed
         if (e.keyCode === 13) {
             updateOutput();
         }
     });
+
     $('input').keyup(function(e) { updateOutput(); });
+
+    function loadLoans() {
+        var json = localStorage.getItem('loans');
+        if (!json) {
+            return;
+        }
+
+        var loans = JSON.parse(json);
+        console.log(loans);
+
+        // TODO: Put loans in DOM
+    }
+
+    function saveLoans(loans) {
+        localStorage.setItem('loans', JSON.stringify(loans));
+    }
 
     function updateOutput() {
         var loans = $('.loan');
@@ -73,6 +94,8 @@ $(function() {
             return 0;
         });
 
+        console.log(validLoans);
+
         for (var i = 0; i < validLoans.length; i++) {
             var distribution = 'Need "Desired Payment Beyond Minimum" to calculate.';
 
@@ -84,6 +107,9 @@ $(function() {
 
             tableBody.append(newRowHtml);
         }
+
+        // Side effect
+        saveLoans(validLoans);
 
         if (validLoans.length === numLoans) {
             addLoanRow();
