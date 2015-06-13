@@ -137,6 +137,7 @@ $(function() {
     }
 
     function calculatePayment(loans, remainder) {
+        console.log('Loans: ' + loans.length + ', ' + 'Remainder: ' + remainder);
         if (loans.length < 1) {
             console.log('Ran out of loans. Hopefully this is what normally happens.');
             return [0];
@@ -160,7 +161,12 @@ $(function() {
             var paymentToReachTarget = loans[0].principal - targetBalance;
 
             if (paymentToReachTarget > remainder) {
-                return [remainder, 0];
+                var distribution = [remainder];
+                for (var i = 1; i < loans.length; i++) {
+                    distribution.push(0);
+                }
+
+                return distribution;
             } else {
                 loan1Payment = paymentToReachTarget;
                 remainder -= loan1Payment;
