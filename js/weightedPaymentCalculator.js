@@ -27,6 +27,7 @@ $(function() {
         var numLoanRows = $('.loan').length;
 
         for (var i = 0; i < loans.length; i++) {
+            // Fill page with data
             var principal = loans[i].principal.toFixed(2);
             var rate = (loans[i].interest * 100).toFixed(2);
 
@@ -39,9 +40,8 @@ $(function() {
             }
         }
 
-        // TODO: Pass loans into updateOutput to avoid reprocessing
         if (loans.length >= 2) {
-            updateOutput();
+            updateOutput(loans);
         }
     }
 
@@ -50,20 +50,22 @@ $(function() {
         localStorage.setItem('loans', JSON.stringify(loans));
     }
 
-    function updateOutput() {
-        var loans = $('.loan');
-        var numLoans = loans.length;
-        var validLoans = [];
+    function updateOutput(validLoans) {
+        if (!validLoans) {
+            var loans = $('.loan');
+            var numLoans = loans.length;
+            var validLoans = [];
 
-        for (var i = 0; i < numLoans; i++) {
-            // Check if each row is valid. If 2+ rows are valid, then show output.
-            var principal = $('#principal' + (i + 1) + '-input').val();
-            var interest = $('#rate' + (i + 1) + '-input').val();
+            for (var i = 0; i < numLoans; i++) {
+                // Check if each row is valid. If 2+ rows are valid, then show output.
+                var principal = $('#principal' + (i + 1) + '-input').val();
+                var interest = $('#rate' + (i + 1) + '-input').val();
 
-            var loan = getValidRow(principal, interest);
-            if (loan !== null) {
-                loan.displayOrder = i;
-                validLoans.push(loan);
+                var loan = getValidRow(principal, interest);
+                if (loan !== null) {
+                    loan.displayOrder = i;
+                    validLoans.push(loan);
+                }
             }
         }
 
