@@ -57,7 +57,7 @@ $(function() {
 
         // Map payment distributions to loans
         for (var i = 0; i < distributions.length; i++) {
-            validLoans[i].distribution = distributions[i];
+            validLoans[i].distribution = +distributions[i].toFixed(2);
         }
 
         // Restore original order for display
@@ -78,8 +78,8 @@ $(function() {
 
             var newRowHtml =    '<tr>' +
                                     '<td>' + (i + 1) + '</td>' +
-                                    '<td>$' + validLoans[i].monthlyInterest.toFixed(2) + '</td>' +
-                                    '<td>$' + validLoans[i].distribution.toFixed(2) + '</td>' +
+                                    '<td>$' + validLoans[i].monthlyInterest + '</td>' +
+                                    '<td>$' + validLoans[i].distribution + '</td>' +
                                 '</tr>';
 
             tableBody.append(newRowHtml);
@@ -155,7 +155,7 @@ $(function() {
 
         var interestDecimal = interest / 100;
 
-        return { principal: principal, interest: interestDecimal, monthlyInterest: principal * interestDecimal / 12 };
+        return { principal: principal, interest: interestDecimal, monthlyInterest: +(principal * interestDecimal / 12).toFixed(2) };
     }
 
     function getValidDecimal(decimal) {
@@ -172,7 +172,7 @@ $(function() {
         if (!$.isNumeric(decimal)) {
             return null;
         }
-        return decimal;
+        return +decimal;
     }
 
     function addLoanRow() {
