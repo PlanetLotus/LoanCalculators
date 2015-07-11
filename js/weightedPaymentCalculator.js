@@ -3,8 +3,8 @@
 
 $(function() {
     $(document).ready(function() {
-        loadLoans();
         loadPayment();
+        loadLoans();
     });
 
     $('body').keyup(function(e) {
@@ -107,7 +107,8 @@ $(function() {
             return 0;
         });
 
-        var desiredPayment = getValidDecimal($('#payment-input').val());
+        var desiredPaymentInput = $('#payment-input').val();
+        var desiredPayment = getValidDecimal(desiredPaymentInput);
 
         var distributions = calculatePayment(validLoans, desiredPayment);
 
@@ -226,19 +227,12 @@ $(function() {
     }
 
     function getValidDecimal(decimal) {
-        var decimalRegex = /[0-9.]+/;
+        decimal = decimal.replace(/[^\d\.]+/g, '');
 
-        decimal = decimal.match(decimalRegex);
-
-        if ($(decimal).length === 0) {
+        if (decimal.length === 0) {
             return null;
         }
 
-        decimal = decimal[0];
-
-        if (!$.isNumeric(decimal)) {
-            return null;
-        }
         return +decimal;
     }
 
