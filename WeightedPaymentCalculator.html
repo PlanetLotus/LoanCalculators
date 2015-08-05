@@ -19,7 +19,7 @@
       <h3>Loan Properties</h3>
 
       <div class="form-group">
-        <label for="payment-input">Desired Payment Beyond Minimum (Optional)</label>
+        <label for="payment-input">Total Payment <small>(Includes minimum payment)</small></label>
         <div class="input-group">
           <div class="input-group-addon">$</div>
           <input type="text" class="form-control" id="payment-input" placeholder="1000">
@@ -33,7 +33,7 @@
               <label for="principal1-input">Principal</label>
               <div class="input-group">
                 <div class="input-group-addon">$</div>
-                <input type="text" class="form-control" id="principal1-input" placeholder="10000">
+                <input type="text" class="form-control" id="principal1-input" placeholder="10,000">
               </div>
             </div>
           </div>
@@ -46,6 +46,15 @@
               </div>
             </div>
           </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="minPmt1-input">Minimum Payment</label>
+              <div class="input-group">
+                <div class="input-group-addon">$</div>
+                <input type="text" class="form-control" id="minPmt1-input" placeholder="100">
+              </div>
+            </div>
+          </div>
         </div>
         <div id="loan2" class="row loan">
           <div class="col-md-4">
@@ -53,7 +62,7 @@
               <label class="sr-only" for="principal2-input">Principal</label>
               <div class="input-group">
                 <div class="input-group-addon">$</div>
-                <input type="text" class="form-control" id="principal2-input" placeholder="10000">
+                <input type="text" class="form-control" id="principal2-input" placeholder="10,000">
               </div>
             </div>
           </div>
@@ -63,6 +72,15 @@
               <div class="input-group">
                 <input type="text" class="form-control" id="rate2-input" placeholder="5.0">
                 <div class="input-group-addon">%</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="sr-only" for="minPmt2-input">Minimum Payment</label>
+              <div class="input-group">
+                <div class="input-group-addon">$</div>
+                <input type="text" class="form-control" id="minPmt2-input" placeholder="100">
               </div>
             </div>
           </div>

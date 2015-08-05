@@ -274,7 +274,7 @@ $(function() {
                             '           <label class="sr-only" for="principal' + nextLoanNumber + '-input">Principal</label>' +
                             '           <div class="input-group">' +
                             '               <div class="input-group-addon">$</div>' +
-                            '               <input type="text" class="form-control" id="principal' + nextLoanNumber + '-input" placeholder="10000">' +
+                            '               <input type="text" class="form-control" id="principal' + nextLoanNumber + '-input" placeholder="10,000">' +
                             '           </div>' +
                             '       </div>' +
                             '   </div>' +
@@ -284,6 +284,15 @@ $(function() {
                             '           <div class="input-group">' +
                             '               <input type="text" class="form-control" id="rate' + nextLoanNumber + '-input" placeholder="5.0">' +
                             '               <div class="input-group-addon">%</div>' +
+                            '           </div>' +
+                            '       </div>' +
+                            '   </div>' +
+                            '   <div class="col-md-4">' +
+                            '       <div class="form-group">' +
+                            '           <label class="sr-only" for="minPmt' + nextLoanNumber + '-input">Minimum Payment</label>' +
+                            '           <div class="input-group">' +
+                            '               <div class="input-group-addon">$</div>' +
+                            '               <input type="text" class="form-control" id="minPmt' + nextLoanNumber + '-input" placeholder="10,000">' +
                             '           </div>' +
                             '       </div>' +
                             '   </div>' +
