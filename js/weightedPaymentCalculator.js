@@ -40,9 +40,11 @@ $(function() {
             // Fill page with data
             var principal = getMoneyString(loans[i].principal);
             var rate = (loans[i].interest * 100).toFixed(2);
+            var minPayment = getMoneyString(loans[i].minPayment);
 
             $('#principal' + (i + 1) + '-input').val(principal);
             $('#rate' + (i + 1) + '-input').val(rate);
+            $('#minPayment' + (i + 1) + '-input').val(minPayment);
 
             if (i + 1 === numLoanRows) {
                 addLoanRow();
@@ -75,8 +77,9 @@ $(function() {
                 // Check if each row is valid. If 2+ rows are valid, then show output.
                 var principal = $('#principal' + (i + 1) + '-input').val();
                 var interest = $('#rate' + (i + 1) + '-input').val();
+                var minPayment = $('#minPayment' + (i + 1) + '-input').val();
 
-                var loan = getValidRow(principal, interest);
+                var loan = getValidRow(principal, interest, minPayment);
                 if (loan !== null) {
                     loan.displayOrder = i;
                     validLoans.push(loan);
@@ -213,17 +216,23 @@ $(function() {
         return getAnnualInterest(loan) / 12;
     }
 
-    function getValidRow(principal, interest) {
+    function getValidRow(principal, interest, minPayment) {
         principal = getValidDecimal(principal);
         interest = getValidDecimal(interest);
+        minPayment = getValidDecimal(minPayment);
 
-        if (principal === null || interest === null) {
+        if (principal === null || interest === null || minPayment == null) {
             return null;
         }
 
         var interestDecimal = interest / 100;
 
-        return { principal: principal, interest: interestDecimal, monthlyInterest: +(principal * interestDecimal / 12).toFixed(2) };
+        return {
+            principal: principal,
+            interest: interestDecimal,
+            minPayment: minPayment,
+            monthlyInterest: +(principal * interestDecimal / 12).toFixed(2)
+        };
     }
 
     function getValidDecimal(decimal) {
@@ -289,10 +298,10 @@ $(function() {
                             '   </div>' +
                             '   <div class="col-md-4">' +
                             '       <div class="form-group">' +
-                            '           <label class="sr-only" for="minPmt' + nextLoanNumber + '-input">Minimum Payment</label>' +
+                            '           <label class="sr-only" for="minPayment' + nextLoanNumber + '-input">Minimum Payment</label>' +
                             '           <div class="input-group">' +
                             '               <div class="input-group-addon">$</div>' +
-                            '               <input type="text" class="form-control" id="minPmt' + nextLoanNumber + '-input" placeholder="10,000">' +
+                            '               <input type="text" class="form-control" id="minPayment' + nextLoanNumber + '-input" placeholder="100">' +
                             '           </div>' +
                             '       </div>' +
                             '   </div>' +
