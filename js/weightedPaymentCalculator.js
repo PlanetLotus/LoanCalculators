@@ -113,6 +113,9 @@ $(function() {
         var desiredPaymentInput = $('#payment-input').val();
         var desiredPayment = getValidDecimal(desiredPaymentInput);
 
+        var loanGroups = getLoanGroups(validLoans);
+        console.log(loanGroups);
+
         var distributions = calculatePayment(validLoans, desiredPayment);
 
         // Map payment distributions to loans
@@ -153,6 +156,40 @@ $(function() {
         if (validLoans.length === numLoans) {
             addLoanRow();
         }
+    }
+
+    function getLoanGroups(loans) {
+        var loanGroups = [];
+        var loan = {
+            principal: loans[0].principal,
+            interest: loans[0].interest
+        };
+        loanGroups.push(loan);
+
+        for (var i = 1; i < loans.length; i++) {
+            var isAppendedToExistingGroup = false;
+            for (var j = 0; j < loanGroups.length; j++) {
+                if (loanGroups[j].interest === loans[i].interest) {
+                    loanGroups[j].principal += loans[i].principal;
+                    isAppendedToExistingGroup = true;
+                }
+            }
+
+            if (!isAppendedToExistingGroup) {
+                var loan = {
+                    principal: loans[i].principal,
+                    interest: loans[i].interest
+                };
+                loanGroups.push(loan);
+            }
+        }
+
+        // Recompute monthly interest of each loan group
+        for (var i = 0; i < loanGroups.length; i++) {
+            loanGroups[i].monthlyInterest = +(loanGroups[i].principal * loanGroups[i].interest / 12).toFixed(2);
+        }
+
+        return loanGroups;
     }
 
     function calculatePayment(loans, remainder) {
