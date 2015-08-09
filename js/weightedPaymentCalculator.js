@@ -116,12 +116,14 @@ $(function() {
         var loanGroups = getLoanGroups(validLoans);
         console.log(loanGroups);
 
-        var distributions = calculatePayment(validLoans, desiredPayment);
+        var distributionGroups = calculatePayment(loanGroups, desiredPayment);
 
         // Map payment distributions to loans
-        for (var i = 0; i < distributions.length; i++) {
-            validLoans[i].distribution = +distributions[i].toFixed(2);
+        for (var i = 0; i < distributionGroups.length; i++) {
+            loanGroups[i].distribution = +distributionGroups[i].toFixed(2);
         }
+
+        validLoans = setDistributions(validLoans, loanGroups, desiredPayment);
 
         // Restore original order for display
         validLoans.sort(function(a, b) {
@@ -190,6 +192,42 @@ $(function() {
         }
 
         return loanGroups;
+    }
+
+    function setDistributions(loans, distributionGroups, payment) {
+        var resultLoans = [];
+
+        // For each distribution group, find the loans with that interest rate
+        // Then, set each loan's distribution based on the split algorithm
+        for (var i = 0; i < distributionGroups.length; i++) {
+            var interest = distributionGroups[i].interest;
+
+            var loansInGroup = [];
+            for (var j = 0; j < loans.length; j++) {
+                if (loans[j].interest === interest) {
+                    loansInGroup.push(loans[j]);
+                }
+            }
+
+            var avgPrincipal = distributionGroups[i].principal / loansInGroup.length;
+            var evenlySplitPayment = payment / loansInGroup.length;
+            var paymentRemainder = payment;
+
+            for (var j = 0; j < loansInGroup.length; j++) {
+                var splitDistribution = evenlySplitPayment + loansInGroup[j].principal - avgPrincipal;
+                if (splitDistribution > paymentRemainder) {
+                    splitDistribution = paymentRemainder;
+                } else if (splitDistribution < 0) {
+                    splitDistribution = 0;
+                }
+
+                loansInGroup[j].distribution = splitDistribution;
+                resultLoans.push(loansInGroup[j]);
+                paymentRemainder -= splitDistribution;
+            }
+        }
+
+        return resultLoans;
     }
 
     function calculatePayment(loans, remainder) {
