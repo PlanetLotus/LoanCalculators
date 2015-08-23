@@ -114,16 +114,17 @@ $(function() {
         var desiredPayment = getValidDecimal(desiredPaymentInput);
 
         var loanGroups = getLoanGroups(validLoans);
-        console.log(loanGroups);
+        console.log('Loan groups: ' + JSON.stringify(loanGroups));
 
         var distributionGroups = calculatePayment(loanGroups, desiredPayment);
+        console.log('Distribution groups: ' + JSON.stringify(distributionGroups));
 
         // Map payment distributions to loans
         for (var i = 0; i < distributionGroups.length; i++) {
             loanGroups[i].distribution = +distributionGroups[i].toFixed(2);
         }
 
-        validLoans = setDistributions(validLoans, loanGroups, desiredPayment);
+        validLoans = setDistributions(validLoans, loanGroups);
 
         // Restore original order for display
         validLoans.sort(function(a, b) {
@@ -194,13 +195,14 @@ $(function() {
         return loanGroups;
     }
 
-    function setDistributions(loans, distributionGroups, payment) {
+    function setDistributions(loans, distributionGroups) {
         var resultLoans = [];
 
         // For each distribution group, find the loans with that interest rate
         // Then, set each loan's distribution based on the split algorithm
         for (var i = 0; i < distributionGroups.length; i++) {
             var interest = distributionGroups[i].interest;
+            var paymentRemainder = distributionGroups[i].distribution;
 
             var loansInGroup = [];
             for (var j = 0; j < loans.length; j++) {
@@ -210,8 +212,7 @@ $(function() {
             }
 
             var avgPrincipal = distributionGroups[i].principal / loansInGroup.length;
-            var evenlySplitPayment = payment / loansInGroup.length;
-            var paymentRemainder = payment;
+            var evenlySplitPayment = paymentRemainder / loansInGroup.length;
 
             for (var j = 0; j < loansInGroup.length; j++) {
                 var splitDistribution = evenlySplitPayment + loansInGroup[j].principal - avgPrincipal;
