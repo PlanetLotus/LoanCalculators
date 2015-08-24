@@ -99,11 +99,11 @@ $(function() {
         // Calculate monthly interest and output each loan with this data, sorted by descending interest generated per loan.
         // In this table, also list the current amount that your "extra" payment should go to (if the "Desired Payment Beyond Minimum" is filled out. If not, say "Need 'Desired Payment Beyond Minimum' to calculate").
         validLoans.sort(function(a, b) {
-            if (a.monthlyInterest < b.monthlyInterest) {
+            if (a.monthlyInterestAfterMinPmt < b.monthlyInterestAfterMinPmt) {
                 return 1;
             }
 
-            if (a.monthlyInterest > b.monthlyInterest) {
+            if (a.monthlyInterestAfterMinPmt > b.monthlyInterestAfterMinPmt) {
                 return -1;
             }
 
@@ -165,7 +165,8 @@ $(function() {
         var loanGroups = [];
         var loan = {
             principal: loans[0].principal,
-            interest: loans[0].interest
+            interest: loans[0].interest,
+            minPayment: loans[0].minPayment
         };
         loanGroups.push(loan);
 
@@ -174,6 +175,7 @@ $(function() {
             for (var j = 0; j < loanGroups.length; j++) {
                 if (loanGroups[j].interest === loans[i].interest) {
                     loanGroups[j].principal += loans[i].principal;
+                    loanGroups[j].minPayment += loans[i].minPayment;
                     isAppendedToExistingGroup = true;
                 }
             }
@@ -181,7 +183,8 @@ $(function() {
             if (!isAppendedToExistingGroup) {
                 var loan = {
                     principal: loans[i].principal,
-                    interest: loans[i].interest
+                    interest: loans[i].interest,
+                    minPayment: loans[0].minPayment
                 };
                 loanGroups.push(loan);
             }
@@ -190,6 +193,7 @@ $(function() {
         // Recompute monthly interest of each loan group
         for (var i = 0; i < loanGroups.length; i++) {
             loanGroups[i].monthlyInterest = +(loanGroups[i].principal * loanGroups[i].interest / 12).toFixed(2);
+            loanGroups[i].monthlyInterestAfterMinPmt = +((loanGroups[i].principal - loanGroups[i].minPayment) * loanGroups[i].interest / 12).toFixed(2);
         }
 
         return loanGroups;
@@ -251,8 +255,8 @@ $(function() {
 
         // First, make the monthly interest accrued equal
         // Then, if there's any payment leftover, distribute it with a ratio
-        if (loans[0].monthlyInterest > loans[1].monthlyInterest) {
-            var targetBalance = loans[1].monthlyInterest * 12 / loans[0].interest;
+        if (loans[0].monthlyInterestAfterMinPmt > loans[1].monthlyInterestAfterMinPmt) {
+            var targetBalance = loans[1].monthlyInterestAfterMinPmt * 12 / loans[0].interest;
             var paymentToReachTarget = loans[0].principal - targetBalance;
 
             if (paymentToReachTarget > remainder) {
@@ -307,7 +311,8 @@ $(function() {
             principal: principal,
             interest: interestDecimal,
             minPayment: minPayment,
-            monthlyInterest: +(principal * interestDecimal / 12).toFixed(2)
+            monthlyInterest: +(principal * interestDecimal / 12).toFixed(2),
+            monthlyInterestAfterMinPmt: +((principal - minPayment) * interestDecimal / 12).toFixed(2)
         };
     }
 
