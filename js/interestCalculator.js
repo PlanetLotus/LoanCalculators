@@ -58,7 +58,7 @@ $(function() {
         $('#monthly-savings').text('$' + monthlySavings.toFixed(2) + ' every month.');
         $('#annual-savings').text('$' + annualSavings.toFixed(2) + ' every year.');
 
-        $('#hypothetical-payment-div').show('fast');
-        $('#savings-div').show('fast');
+        $('#hypothetical-payment-div').removeClass('hidden');
+        $('#savings-div').removeClass('hidden');
     }
 });

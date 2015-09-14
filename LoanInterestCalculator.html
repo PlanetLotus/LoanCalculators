@@ -7,10 +7,11 @@
   <title>Loan Interest Calculator</title>
 
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/site.css" rel="stylesheet">
 </head>
 <body>
   <div class="row">
-    <div class="col-md-4" style="float: none; margin: 0 auto">
+    <div class="col-md-4 no-float">
       <h1>Loan Calculator</h1>
 
       <p>
@@ -56,7 +57,7 @@
 
       <hr>
 
-      <div id="hypothetical-payment-div" class="form-group" style="display: none;">
+      <div id="hypothetical-payment-div" class="form-group hidden">
         <label for="hypothetical-payment-input">For every payment of...</label>
         <div class="input-group">
           <div class="input-group-addon">$</div>
@@ -64,7 +65,7 @@
         </div>
       </div>
 
-      <div id="savings-div" class="form-group" style="display: none;">
+      <div id="savings-div" class="form-group hidden">
         <label for="payment-savings">You save...</label>
         <div id="payment-savings">
           <p id="daily-savings"></p>
