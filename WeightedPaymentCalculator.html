@@ -33,98 +33,102 @@
       </div>
     </div>
   </nav>
-  <div class="row">
-    <div class="col-md-4 no-float">
-      <h1>Weighted Payment Calculator</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-8 col-lg-7 no-float">
+        <h1>Weighted Payment Calculator</h1>
 
-      <p>When you have multiple loans that you want to pay down faster, you need to know how to minimize the amount of interest generated. This means always focusing your payments on the loans that generate the most interest and making the minimum payments on any other loans that don't meet this criteria. Here you can put the principal and interest rate of as many loans as you wish and this page will tell you what to focus on.</p>
+        <p>When you have multiple loans that you want to pay down faster, you need to know how to minimize the amount of interest generated. This means always focusing your payments on the loans that generate the most interest and making the minimum payments on any other loans that don't meet this criteria. Here you can put the principal and interest rate of as many loans as you wish and this page will tell you what to focus on.</p>
 
-      <h3>Loan Properties</h3>
+        <h2>Loan Properties</h2>
 
-      <div class="form-group">
-        <label for="payment-input">How much can you spend this month after (excluding) your minimum payments?</label>
-        <div class="input-group">
-          <div class="input-group-addon">$</div>
-          <input type="text" class="form-control" id="payment-input" placeholder="1000">
+        <div class="form-group">
+          <label for="payment-input">How much can you spend this month after (excluding) your minimum payments?</label>
+          <div class="input-group">
+            <div class="input-group-addon">$</div>
+            <input type="text" class="form-control" id="payment-input" placeholder="1000">
+          </div>
         </div>
+
+        <div id="loan-list" class="form-inline">
+          <h3 class="visible-xs">Loan 1</h3>
+          <div id="loan1" class="row loan">
+            <div class="col-sm-4 col-md-4">
+              <div class="form-group">
+                <label for="principal1-input">Principal</label>
+                <div class="input-group">
+                  <div class="input-group-addon">$</div>
+                  <input type="text" class="form-control" id="principal1-input" placeholder="10,000">
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-4">
+              <div class="form-group">
+                <label for="rate1-input">Interest Rate (Percentage)</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="rate1-input" placeholder="5.0">
+                  <div class="input-group-addon">%</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-4">
+              <div class="form-group">
+                <label for="minPayment1-input">Minimum Payment</label>
+                <div class="input-group">
+                  <div class="input-group-addon">$</div>
+                  <input type="text" class="form-control" id="minPayment1-input" placeholder="100">
+                </div>
+              </div>
+            </div>
+          </div>
+          <h3 class="visible-xs">Loan 2</h3>
+          <div id="loan2" class="row loan">
+            <div class="col-sm-4 col-md-4">
+              <div class="form-group">
+                <label class="visible-xs" for="principal2-input">Principal</label>
+                <div class="input-group">
+                  <div class="input-group-addon">$</div>
+                  <input type="text" class="form-control" id="principal2-input" placeholder="10,000">
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-4">
+              <div class="form-group">
+                <label class="visible-xs" for="rate2-input">Interest Rate (Percentage)</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="rate2-input" placeholder="5.0">
+                  <div class="input-group-addon">%</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-4">
+              <div class="form-group">
+                <label class="visible-xs" for="minPayment2-input">Minimum Payment</label>
+                <div class="input-group">
+                  <div class="input-group-addon">$</div>
+                  <input type="text" class="form-control" id="minPayment2-input" placeholder="100">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <table id="loan-output-table" class="table">
+          <thead>
+            <tr>
+              <th>Loan #</th>
+              <th>Monthly Interest</th>
+              <th>Recommended Payment</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/weightedPaymentCalculator.js"></script>
       </div>
-
-      <div id="loan-list" class="form-inline">
-        <div id="loan1" class="row loan">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="principal1-input">Principal</label>
-              <div class="input-group">
-                <div class="input-group-addon">$</div>
-                <input type="text" class="form-control" id="principal1-input" placeholder="10,000">
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="rate1-input">Interest Rate (Percentage)</label>
-              <div class="input-group">
-                <input type="text" class="form-control" id="rate1-input" placeholder="5.0">
-                <div class="input-group-addon">%</div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label for="minPayment1-input">Minimum Payment</label>
-              <div class="input-group">
-                <div class="input-group-addon">$</div>
-                <input type="text" class="form-control" id="minPayment1-input" placeholder="100">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="loan2" class="row loan">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label class="sr-only" for="principal2-input">Principal</label>
-              <div class="input-group">
-                <div class="input-group-addon">$</div>
-                <input type="text" class="form-control" id="principal2-input" placeholder="10,000">
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label class="sr-only" for="rate2-input">Interest Rate (Percentage)</label>
-              <div class="input-group">
-                <input type="text" class="form-control" id="rate2-input" placeholder="5.0">
-                <div class="input-group-addon">%</div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label class="sr-only" for="minPayment2-input">Minimum Payment</label>
-              <div class="input-group">
-                <div class="input-group-addon">$</div>
-                <input type="text" class="form-control" id="minPayment2-input" placeholder="100">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <table id="loan-output-table" class="table">
-        <thead>
-          <tr>
-            <th>Loan #</th>
-            <th>Monthly Interest Generated</th>
-            <th>Optimal Payment Distribution</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-      <script src="js/weightedPaymentCalculator.js"></script>
     </div>
   </div>
 </body>
