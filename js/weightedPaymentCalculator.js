@@ -243,7 +243,9 @@ $(function() {
         }
 
         if (loans.length === 1) {
-            return [remainder];
+            return loans[0].principal > remainder
+                ? remainder
+                : loans[0].principal;
         }
 
         if (remainder <= 0) {
