@@ -9,8 +9,7 @@ $(function() {
             updateOutput();
         }
     });
-    $('#principal-input').keyup(function(e) { updateOutput(); });
-    $('#rate-input').keyup(function(e) { updateOutput(); });
+    $('input').keyup(function(e) { updateOutput(); });
 
     function updateOutput() {
         var principal = $('#principal-input').val().match(decimalRegex);
@@ -25,6 +24,8 @@ $(function() {
 
         if (!$.isNumeric(principal) || !$.isNumeric(interest))
             return;
+
+        interest = interest / 100;
 
         var annualInterest = principal * interest;
         var monthlyInterest = annualInterest / monthsInYear;
@@ -50,7 +51,7 @@ $(function() {
             return;
         }
 
-        var annualSavings = hypotheticalPayment / interest;
+        var annualSavings = hypotheticalPayment * interest;
         var monthlySavings = annualSavings / monthsInYear;
         var dailySavings = annualSavings / daysInYear;
 
