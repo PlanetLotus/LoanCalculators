@@ -14,7 +14,7 @@ $(function() {
         }
     });
 
-    $('input').keyup(function(e) { updateOutput(); });
+    $('body').keyup('input', function(e) { updateOutput(); });
 
     function loadPayment() {
         var payment = localStorage.getItem('payment');
