@@ -234,6 +234,8 @@ $(function() {
     }
 
     function calculatePayment(loans, remainder) {
+        var originalRemainder = remainder;
+
         console.log('Loans: ' + loans.length + ', ' + 'Remainder: ' + remainder);
         if (loans.length < 1) {
             console.log('Ran out of loans. Hopefully this is what normally happens.');
@@ -277,8 +279,15 @@ $(function() {
         }
 
         var distribution = getPaymentDistribution(loans[0].interest, loans[1].interest, remainder);
-        var newRemainder = remainder - distribution[0];
         loan1Payment += distribution[0];
+
+        // Edge case: distribution is greater than principal
+        // Reallocate to second loan
+        if (loan1Payment > loans[0].principal) {
+            loan1Payment = loans[0].principal;
+        }
+
+        var newRemainder = originalRemainder - loan1Payment;
         return [loan1Payment].concat(calculatePayment(loans.slice(1, loans.length), newRemainder));
     }
 
