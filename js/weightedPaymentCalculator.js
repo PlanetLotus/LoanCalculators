@@ -142,8 +142,6 @@ $(function() {
         console.log(validLoans);
 
         for (var i = 0; i < validLoans.length; i++) {
-            var distribution = 'Need "Desired Payment Beyond Minimum" to calculate.';
-
             var newRowHtml =    '<tr>' +
                                     '<td>' + (i + 1) + '</td>' +
                                     '<td>$' + getMoneyString(validLoans[i].monthlyInterest) + '</td>' +
@@ -248,7 +246,13 @@ $(function() {
 
         if (remainder <= 0) {
             console.log('Ran out of remainder.');
-            return [0];
+
+            // ES6 has Array.prototype.fill() which would be useful here
+            var result = [];
+            for (var i = 0; i < loans.length; i++) {
+                result.push(0);
+            }
+            return result;
         }
 
         var loan1Payment = 0;
