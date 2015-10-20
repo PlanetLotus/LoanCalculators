@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact</title>
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/site.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="LoanInterestCalculator.html">Loan Interest Calculator</a></li>
+          <li><a href="Index.html">Weighted Payment Calculator</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="About.html">About</a></li>
+          <li><a class="active" href="Contact.html">Contact <span class="sr-only">(current)</span></a></li>
+          <li><a href="http://ourdisclaimer.com/?i=ExtraLoanPaymentCalculator.com" onclick="window.open(this.href,'Disclaimer','width=600,height=400,scrollbars,resizable,menubar,location,toolbar');return false">Disclaimer</a></li>
+          <li><a href="PrivacyPolicy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-8 col-lg-7 no-float">
+        <h1>Questions? Comments?</h1>
+
+        <p>
+          Please feel free to comment here with any questions, comments, bugs, suggestions, etc.
+        </p>
+
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = location.href;
+            this.page.identifier = "Contact";
+          };
+          (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+
+            s.src = '//extraloanpaymentcalculator.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
