@@ -1,6 +1,3 @@
-// Feature request:
-// User provides different payments and calculator says how much faster you'll pay off the loan, and how much you'll save in interest while doing so.
-
 $(function() {
     $(document).ready(function() {
         loadPayment();
@@ -141,8 +138,8 @@ $(function() {
         for (var i = 0; i < validLoans.length; i++) {
             var newRowHtml =    '<tr>' +
                                     '<td>' + (i + 1) + '</td>' +
-                                    '<td>$' + getMoneyString(validLoans[i].monthlyInterest) + '</td>' +
                                     '<td>$' + getMoneyString(validLoans[i].distribution) + '</td>' +
+                                    '<td>$' + getMoneyString(validLoans[i].principal - validLoans[i].distribution) + '</td>' +
                                 '</tr>';
 
             tableBody.append(newRowHtml);
