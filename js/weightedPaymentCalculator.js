@@ -13,8 +13,34 @@ $(function() {
 
     $('body').keyup('input', function(e) { updateOutput(); });
 
+    function tryGetItem(key) {
+        if (!window.localStorage) {
+            return null;
+        }
+
+        try {
+            return localStorage.getItem(key);
+        }
+        catch (e) {
+            return null;
+        }
+    }
+
+    function trySetItem(key, value) {
+        if (!window.localStorage) {
+            return;
+        }
+
+        try {
+            localStorage.setItem(key, value);
+        }
+        catch (e) {
+            return;
+        }
+    }
+
     function loadPayment() {
-        var payment = localStorage.getItem('payment');
+        var payment = tryGetItem('payment');
         if (!payment) {
             return;
         }
@@ -23,7 +49,7 @@ $(function() {
     }
 
     function loadLoans() {
-        var json = localStorage.getItem('loans');
+        var json = tryGetItem('loans');
         if (!json) {
             return;
         }
@@ -54,11 +80,11 @@ $(function() {
 
     function saveData(loans, payment) {
         if (loans) {
-            localStorage.setItem('loans', JSON.stringify(loans));
+            trySetItem('loans', JSON.stringify(loans));
         }
 
         if (payment) {
-            localStorage.setItem('payment', payment);
+            trySetItem('payment', payment);
         }
     }
 
