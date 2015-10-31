@@ -116,14 +116,14 @@ $(function() {
         tableBody.empty();
 
         // Show output
-        // Calculate monthly interest and output each loan with this data, sorted by descending interest generated per loan.
+        // Calculate annual interest and output each loan with this data, sorted by descending interest generated per loan.
         // In this table, also list the current amount that your "extra" payment should go to.
         validLoans.sort(function(a, b) {
-            if (a.monthlyInterest < b.monthlyInterest) {
+            if (a.annualInterest < b.annualInterest) {
                 return 1;
             }
 
-            if (a.monthlyInterest > b.monthlyInterest) {
+            if (a.annualInterest > b.annualInterest) {
                 return -1;
             }
 
@@ -205,9 +205,9 @@ $(function() {
             }
         }
 
-        // Recompute monthly interest of each loan group
+        // Recompute annual interest of each loan group
         for (var i = 0; i < loanGroups.length; i++) {
-            loanGroups[i].monthlyInterest = +(loanGroups[i].principal * loanGroups[i].interest / 12).toFixed(2);
+            loanGroups[i].annualInterest = +(loanGroups[i].principal * loanGroups[i].interest).toFixed(2);
         }
 
         return loanGroups;
@@ -277,10 +277,10 @@ $(function() {
 
         var loan1Payment = 0;
 
-        // First, make the monthly interest accrued equal
+        // First, make the annual interest accrued equal
         // Then, if there's any payment leftover, distribute it with a ratio
-        if (loans[0].monthlyInterest > loans[1].monthlyInterest) {
-            var targetBalance = loans[1].monthlyInterest * 12 / loans[0].interest;
+        if (loans[0].annualInterest > loans[1].annualInterest) {
+            var targetBalance = loans[1].annualInterest / loans[0].interest;
             var paymentToReachTarget = loans[0].principal - targetBalance;
 
             if (paymentToReachTarget > remainder) {
@@ -340,7 +340,7 @@ $(function() {
         return {
             principal: principal,
             interest: interestDecimal,
-            monthlyInterest: +(principal * interestDecimal / 12).toFixed(2)
+            annualInterest: +(principal * interestDecimal).toFixed(2)
         };
     }
 
