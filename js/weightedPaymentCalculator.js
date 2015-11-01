@@ -1,17 +1,20 @@
-$(function() {
-    $(document).ready(function() {
-        loadPayment();
-        loadLoans();
-    });
+var weightedPaymentCalculator = (function($) {
+    // This script is included in a test script. Don't run automatically when testing.
+    if (!location.pathname.includes('test')) {
+        $(document).ready(function () {
+            loadPayment();
+            loadLoans();
+        });
 
-    $('body').keyup(function(e) {
-        // Update output when Enter key is pressed
-        if (e.keyCode === 13) {
-            updateOutput();
-        }
-    });
+        $('body').keyup(function (e) {
+            // Update output when Enter key is pressed
+            if (e.keyCode === 13) {
+                updateOutput();
+            }
+        });
 
-    $('body').keyup('input', function(e) { updateOutput(); });
+        $('body').keyup('input', function (e) { updateOutput(); });
+    }
 
     function tryGetItem(key) {
         if (!window.localStorage) {
@@ -55,7 +58,6 @@ $(function() {
         }
 
         var loans = JSON.parse(json);
-        console.log(loans);
 
         var numLoanRows = $('.loan').length;
 
@@ -134,10 +136,7 @@ $(function() {
         var desiredPayment = getValidDecimal(desiredPaymentInput);
 
         var loanGroups = getLoanGroups(validLoans);
-        console.log('Loan groups: ' + JSON.stringify(loanGroups));
-
         var distributionGroups = calculatePayment(loanGroups, desiredPayment);
-        console.log('Distribution groups: ' + JSON.stringify(distributionGroups));
 
         // Map payment distributions to loans
         for (var i = 0; i < distributionGroups.length; i++) {
@@ -158,8 +157,6 @@ $(function() {
 
             return 0;
         });
-
-        console.log(validLoans);
 
         for (var i = 0; i < validLoans.length; i++) {
             var newRowHtml =    '<tr>' +
@@ -252,9 +249,7 @@ $(function() {
     function calculatePayment(loans, remainder) {
         var originalRemainder = remainder;
 
-        console.log('Loans: ' + loans.length + ', ' + 'Remainder: ' + remainder);
         if (loans.length < 1) {
-            console.log('Ran out of loans. Hopefully this is what normally happens.');
             return [0];
         }
 
@@ -265,8 +260,6 @@ $(function() {
         }
 
         if (remainder <= 0) {
-            console.log('Ran out of remainder.');
-
             // ES6 has Array.prototype.fill() which would be useful here
             var result = [];
             for (var i = 0; i < loans.length; i++) {
@@ -409,4 +402,9 @@ $(function() {
 
         $('#loan-list').append(newLoanHtml);
     }
-});
+
+    // These are used for unit testing externally
+    return {
+        calculatePayment: calculatePayment
+    };
+})(jQuery);
